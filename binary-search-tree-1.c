@@ -169,12 +169,13 @@ int insert(Node* head, int key)
 		newnode->key = key;
 		newnode->left = newnode->right = NULL;
 		head->left = newnode; // root에 삽입
+		return 0;
 	}
 	/* 삽입할 위치 탐색 */
 	while(curr){
 		if(key == curr->key) { // 같은 key값이 있다면
 			printf("same key is not allowed.\n");
-			return;
+			return 0;
 		}
 		prev = curr; 
 		if(key < curr->key) curr = curr->left; // key의 크기에 따라 왼쪽, 오른쪽 자식 노드로 이동
@@ -199,10 +200,13 @@ int deleteLeafNode(Node* head, int key)
 
 Node* searchRecursive(Node* ptr, int key)
 {
-	/* check pre conditions */
-	if(ptr == NULL){ 
-		return NULL;
-	}
+	/* 입력받은 key와 동일한 key를 가진 노드가 없거나
+	공백 트리인 경우 */
+	if(ptr == NULL) return NULL;
+
+	if(key == ptr->key) return ptr; // 원하는 값 찾아서 리턴
+	else if(key < ptr->key) return searchRecursive(ptr->left, key);
+	return searchRecursive(ptr->right, key);
 }
 
 Node* searchIterative(Node* head, int key)
@@ -211,6 +215,13 @@ Node* searchIterative(Node* head, int key)
 	if(head == NULL){
 		return NULL;
 	}
+	Node* node = head->left;
+	while(node){
+		if(key == node->key) return node; //입력받은 key와 동일한 key가진 노드 찾으면 그 노드의 주소 리턴
+		if(key < node->key) node = node->left; //입력받은 key가 트리의 key보다 작으면 왼쪽 자식으로 이동
+		else node = node->right; // 입력받은 key가 트리의 key보다 크면 오른쪽 자식으로 이동
+	}
+	return NULL; // 찾는 값이 없으면 NULL 리턴
 }
 
 
