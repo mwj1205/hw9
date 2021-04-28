@@ -122,7 +122,7 @@ int initializeBST(Node** h) {
 	(*h)->key = -9999;
 	return 1;
 }
-
+/* inorder방식 tree 순회 */
 void inorderTraversal(Node* ptr)
 {
 	if(ptr){
@@ -131,7 +131,7 @@ void inorderTraversal(Node* ptr)
 		inorderTraversal(ptr->right);
 	}
 }
-
+/* preorder방식 tree 순회 */
 void preorderTraversal(Node* ptr)
 {
 	if(ptr){
@@ -141,7 +141,7 @@ void preorderTraversal(Node* ptr)
 
 	}
 }
-
+/* postorder방식 tree 순회 */
 void postorderTraversal(Node* ptr)
 {
 	if(ptr){
@@ -224,13 +224,13 @@ Node* searchIterative(Node* head, int key)
 	return NULL; // 찾는 값이 없으면 NULL 리턴
 }
 
-
-int freeBST(Node* head)
+/* postorder traversal 응용해 트리 순회하며 메모리 해제 */
+int freeBST(Node* head) 
 {	
-	/* check pre conditions */
-	if(head == NULL){
-		return 0;
-	}
+	if(head == NULL) return 0;
+	freeBST(head->left);
+	freeBST(head->right);
+	free(head);
 }
 
 
