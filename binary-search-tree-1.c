@@ -123,35 +123,33 @@ int initializeBST(Node** h) {
 	return 1;
 }
 
-
-
 void inorderTraversal(Node* ptr)
 {
-	/* check pre conditions */
-	if(ptr == NULL){ 
-		printf("Binary search tree is empty.\n");
-		return;
+	if(ptr){
+		inorderTraversal(ptr->left);
+		printf(" [%d] ", ptr->key);
+		inorderTraversal(ptr->right);
 	}
 }
 
 void preorderTraversal(Node* ptr)
 {
-	/* check pre conditions */
-	if(ptr == NULL){ 
-		printf("Binary search tree is empty.\n");
-		return;
+	if(ptr){
+		printf(" [%d] ", ptr->key);
+		preorderTraversal(ptr->left);
+		preorderTraversal(ptr->right);
+
 	}
 }
 
 void postorderTraversal(Node* ptr)
 {
-	/* check pre conditions */
-	if(ptr == NULL){ 
-		printf("Binary search tree is empty.\n");
-		return;
+	if(ptr){
+		postorderTraversal(ptr->left);
+		postorderTraversal(ptr->right);
+		printf(" [%d] ", ptr->key);
 	}
 }
-
 
 int insert(Node* head, int key)
 {
@@ -160,44 +158,34 @@ int insert(Node* head, int key)
 		printf("Binary search tree is not initialized.\n");
 		return 0;
 	}
-	
-	Node* pnode = head->left;
 
-	if(pnode == NULL){ // 트리가 공백상태면 노드 하나 바로 생성
-		Node* newnode = (Node*)malloc(sizeof(Node));
+	Node* curr = head->left; // 현재 위치
+	Node* prev = NULL; // 이전위치(부모노드)
+	Node* newnode; // 새로운 노드 저장할 포인터 선언해둠
+
+	/* 공백 트리이면 */
+	if(head->left == NULL){
+		newnode = (Node*)malloc(sizeof(Node));
 		newnode->key = key;
 		newnode->left = newnode->right = NULL;
-		head->left = newnode;
-		return 0;
+		head->left = newnode; // root에 삽입
 	}
-	while(1){
-		if(key < pnode->key){ // 입력받은 key가 더 작으면
-			if(pnode->left == NULL){
-				/* 노드 생성 */
-				Node* newnode = (Node*)malloc(sizeof(Node));
-				newnode->key = key;
-				newnode->left = newnode->right = NULL;
-				pnode->left = newnode; // 노드 삽입
-				return 0;
-			}
-			pnode = pnode->left; // left child로 이동
+	/* 삽입할 위치 탐색 */
+	while(curr){
+		if(key == curr->key) { // 같은 key값이 있다면
+			printf("same key is not allowed.\n");
+			return;
 		}
-		else if(key > pnode->key){ // 입력받은 key가 더 크면
-				if(pnode->right == NULL){
-				/* 노드 생성 */
-				Node* newnode = (Node*)malloc(sizeof(Node));
-				newnode->key = key;
-				newnode->left = newnode->right = NULL;
-				pnode->right = newnode; // 노드 삽입
-				return 0;
-			}
-			pnode = pnode->right; // right child로 이동
-		}
-		else if(key == pnode->key){
-			printf("not allowed same key.");
-			return 0;
-		}
+		prev = curr; 
+		if(key < curr->key) curr = curr->left; // key의 크기에 따라 왼쪽, 오른쪽 자식 노드로 이동
+		else curr = curr->right;
 	}
+	newnode = (Node*)malloc(sizeof(Node));
+	newnode->key = key;
+	newnode->left = newnode->right = NULL;
+	/* 부모노드 밑에 삽입 */
+	if(key < prev->key) prev->left = newnode; 
+	else prev->right = newnode;
 }
 
 int deleteLeafNode(Node* head, int key)
