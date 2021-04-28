@@ -228,11 +228,8 @@ Node* searchIterative(Node* head, int key)
 int freeBST(Node* head) 
 {	
 	if(head == NULL) return 0;
-	if(head->right != head){ // headnode에서 무한루프 방지
-		printf("left \n");
-		freeBST(head->left);
-		printf("right \n");
+	freeBST(head->left);
+	if(head->right != head){// headnode에서 무한루프 방지
 		freeBST(head->right);
-		free(head);
-	}
+	free(head);
 }
