@@ -127,44 +127,111 @@ int initializeBST(Node** h) {
 
 void inorderTraversal(Node* ptr)
 {
-
+	/* check pre conditions */
+	if(ptr == NULL){ 
+		printf("Binary search tree is empty.\n");
+		return;
+	}
 }
 
 void preorderTraversal(Node* ptr)
 {
-
+	/* check pre conditions */
+	if(ptr == NULL){ 
+		printf("Binary search tree is empty.\n");
+		return;
+	}
 }
 
 void postorderTraversal(Node* ptr)
 {
-
+	/* check pre conditions */
+	if(ptr == NULL){ 
+		printf("Binary search tree is empty.\n");
+		return;
+	}
 }
 
 
 int insert(Node* head, int key)
 {
+	/* check pre conditions */
+	if(head == NULL){
+		printf("Binary search tree is not initialized.\n");
+		return 0;
+	}
+	
+	Node* pnode = head->left;
 
+	if(pnode == NULL){ // 트리가 공백상태면 노드 하나 바로 생성
+		Node* newnode = (Node*)malloc(sizeof(Node));
+		newnode->key = key;
+		newnode->left = newnode->right = NULL;
+		head->left = newnode;
+		return 0;
+	}
+	while(1){
+		if(key < pnode->key){ // 입력받은 key가 더 작으면
+			if(pnode->left == NULL){
+				/* 노드 생성 */
+				Node* newnode = (Node*)malloc(sizeof(Node));
+				newnode->key = key;
+				newnode->left = newnode->right = NULL;
+				pnode->left = newnode; // 노드 삽입
+				return 0;
+			}
+			pnode = pnode->left; // left child로 이동
+		}
+		else if(key > pnode->key){ // 입력받은 key가 더 크면
+				if(pnode->right == NULL){
+				/* 노드 생성 */
+				Node* newnode = (Node*)malloc(sizeof(Node));
+				newnode->key = key;
+				newnode->left = newnode->right = NULL;
+				pnode->right = newnode; // 노드 삽입
+				return 0;
+			}
+			pnode = pnode->right; // right child로 이동
+		}
+		else if(key == pnode->key){
+			printf("not allowed same key.");
+			return 0;
+		}
+	}
 }
 
 int deleteLeafNode(Node* head, int key)
 {
-
+	/* check pre conditions */
+	if(head == NULL){
+		printf("Binary search tree is not initialized.\n");
+		return 0;
+	}
 }
 
 Node* searchRecursive(Node* ptr, int key)
 {
-
+	/* check pre conditions */
+	if(ptr == NULL){ 
+		return NULL;
+	}
 }
 
 Node* searchIterative(Node* head, int key)
 {
-
+	/* check pre conditions */
+	if(head == NULL){
+		return NULL;
+	}
 }
 
 
 int freeBST(Node* head)
-{
-
+{	
+	/* check pre conditions */
+	if(head == NULL){
+		return 0;
+	}
 }
 
 
