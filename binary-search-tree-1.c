@@ -196,6 +196,39 @@ int deleteLeafNode(Node* head, int key)
 		printf("Binary search tree is not initialized.\n");
 		return 0;
 	}
+	Node* delnode = head->left;
+	Node* prev = head;
+
+	while(delnode != NULL && delnode->key != key){ // 삭제할 노드 탐색
+		prev = delnode;
+		if(delnode->key > key) delnode = delnode->left;
+		else delnode = delnode->right;
+	}
+
+	/* 원하는 노드가 없다면 delnode == NULL */
+	if(!delnode){
+		printf("Cannot find the node [%d]\n",key);
+		return 0;
+	}
+	// 리프노드 삭제
+	if(delnode->left == NULL && delnode->right == NULL){
+		printf("%d 는 리프노드 \n",key);
+		if(prev != head){ // 삭제할 노드가 root가 아닌 경우
+			printf("%d 는 루트가 아니야\n",key);
+			if(prev->left == delnode) prev->left = NULL;
+			else prev->right = NULL;
+		}
+		else {
+			printf("%d 는 루트야 \n",key);
+			head->left = NULL;
+			} // 삭제할 노드가 root인 경우
+        printf("삭제해떠\n");
+		free(delnode);
+	}
+	else{
+		printf("the node [%d] is  not a leaf\n",key);
+		return 0;
+	}
 }
 
 Node* searchRecursive(Node* ptr, int key)
@@ -229,7 +262,7 @@ int freeBST(Node* head)
 {	
 	if(head == NULL) return 0;
 	freeBST(head->left);
-	if(head->right != head){// headnode에서 무한루프 방지
+	if(head->right != head)// headnode에서 무한루프 방지
 		freeBST(head->right);
 	free(head);
 }
