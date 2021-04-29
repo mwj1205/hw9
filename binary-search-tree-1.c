@@ -212,17 +212,13 @@ int deleteLeafNode(Node* head, int key)
 	}
 	// 리프노드 삭제
 	if(delnode->left == NULL && delnode->right == NULL){
-		printf("%d 는 리프노드 \n",key);
 		if(prev != head){ // 삭제할 노드가 root가 아닌 경우
-			printf("%d 는 루트가 아니야\n",key);
 			if(prev->left == delnode) prev->left = NULL;
 			else prev->right = NULL;
 		}
 		else {
-			printf("%d 는 루트야 \n",key);
 			head->left = NULL;
 			} // 삭제할 노드가 root인 경우
-        printf("삭제해떠\n");
 		free(delnode);
 	}
 	else{
