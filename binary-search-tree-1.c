@@ -1,4 +1,4 @@
-ï»¿/*
+/*
  * Binary Search Tree #1
  *
  * Data Structures
@@ -38,7 +38,7 @@ int main()
 	int key;
 	Node* head = NULL;
 	Node* ptr = NULL;	/* temp */
-	printf("[----- [í•œë¯¼ìš°] [2018038047] -----]\n");
+	printf("[----- [ÇÑ¹Î¿ì] [2018038047] -----]\n");
 	do{
 		printf("\n\n");
 		printf("----------------------------------------------------------------\n");
@@ -122,7 +122,7 @@ int initializeBST(Node** h) {
 	(*h)->key = -9999;
 	return 1;
 }
-/* inorderë°©ì‹ tree ìˆœíšŒ */
+/* inorder¹æ½Ä tree ¼øÈ¸ */
 void inorderTraversal(Node* ptr)
 {
 	if(ptr){
@@ -131,7 +131,7 @@ void inorderTraversal(Node* ptr)
 		inorderTraversal(ptr->right);
 	}
 }
-/* preorderë°©ì‹ tree ìˆœíšŒ */
+/* preorder¹æ½Ä tree ¼øÈ¸ */
 void preorderTraversal(Node* ptr)
 {
 	if(ptr){
@@ -141,7 +141,7 @@ void preorderTraversal(Node* ptr)
 
 	}
 }
-/* postorderë°©ì‹ tree ìˆœíšŒ */
+/* postorder¹æ½Ä tree ¼øÈ¸ */
 void postorderTraversal(Node* ptr)
 {
 	if(ptr){
@@ -159,32 +159,32 @@ int insert(Node* head, int key)
 		return 0;
 	}
 
-	Node* curr = head->left; // í˜„ì¬ ìœ„ì¹˜
-	Node* prev = NULL; // ì´ì „ìœ„ì¹˜(ë¶€ëª¨ë…¸ë“œ)
-	Node* newnode; // ìƒˆë¡œìš´ ë…¸ë“œ ì €ì¥í•  í¬ì¸í„° ì„ ì–¸í•´ë‘ 
+	Node* curr = head->left; // ÇöÀç À§Ä¡
+	Node* prev = NULL; // ÀÌÀüÀ§Ä¡(ºÎ¸ğ³ëµå)
+	Node* newnode; // »õ·Î¿î ³ëµå ÀúÀåÇÒ Æ÷ÀÎÅÍ ¼±¾ğÇØµÒ
 
-	/* ê³µë°± íŠ¸ë¦¬ì´ë©´ */
+	/* °ø¹é Æ®¸®ÀÌ¸é */
 	if(head->left == NULL){
 		newnode = (Node*)malloc(sizeof(Node));
 		newnode->key = key;
 		newnode->left = newnode->right = NULL;
-		head->left = newnode; // rootì— ì‚½ì…
+		head->left = newnode; // root¿¡ »ğÀÔ
 		return 0;
 	}
-	/* ì‚½ì…í•  ìœ„ì¹˜ íƒìƒ‰ */
+	/* »ğÀÔÇÒ À§Ä¡ Å½»ö */
 	while(curr){
-		if(key == curr->key) { // ê°™ì€ keyê°’ì´ ìˆë‹¤ë©´
+		if(key == curr->key) { // °°Àº key°ªÀÌ ÀÖ´Ù¸é
 			printf("same key is not allowed.\n");
 			return 0;
 		}
 		prev = curr; 
-		if(key < curr->key) curr = curr->left; // keyì˜ í¬ê¸°ì— ë”°ë¼ ì™¼ìª½, ì˜¤ë¥¸ìª½ ìì‹ ë…¸ë“œë¡œ ì´ë™
+		if(key < curr->key) curr = curr->left; // keyÀÇ Å©±â¿¡ µû¶ó ¿ŞÂÊ, ¿À¸¥ÂÊ ÀÚ½Ä ³ëµå·Î ÀÌµ¿
 		else curr = curr->right;
 	}
 	newnode = (Node*)malloc(sizeof(Node));
 	newnode->key = key;
 	newnode->left = newnode->right = NULL;
-	/* ë¶€ëª¨ë…¸ë“œ ë°‘ì— ì‚½ì… */
+	/* ºÎ¸ğ³ëµå ¹Ø¿¡ »ğÀÔ */
 	if(key < prev->key) prev->left = newnode; 
 	else prev->right = newnode;
 }
@@ -199,30 +199,30 @@ int deleteLeafNode(Node* head, int key)
 	Node* delnode = head->left;
 	Node* prev = head;
 
-	while(delnode != NULL && delnode->key != key){ // ì‚­ì œí•  ë…¸ë“œ íƒìƒ‰
+	while(delnode != NULL && delnode->key != key){ // »èÁ¦ÇÒ ³ëµå Å½»ö
 		prev = delnode;
 		if(delnode->key > key) delnode = delnode->left;
 		else delnode = delnode->right;
 	}
 
-	/* ì›í•˜ëŠ” ë…¸ë“œê°€ ì—†ë‹¤ë©´ delnode == NULL */
+	/* ¿øÇÏ´Â ³ëµå°¡ ¾ø´Ù¸é delnode == NULL */
 	if(!delnode){
 		printf("Cannot find the node [%d]\n",key);
 		return 0;
 	}
-	// ë¦¬í”„ë…¸ë“œ ì‚­ì œ
+	// ¸®ÇÁ³ëµå »èÁ¦
 	if(delnode->left == NULL && delnode->right == NULL){
-		printf("%d ëŠ” ë¦¬í”„ë…¸ë“œ \n",key);
-		if(prev != head){ // ì‚­ì œí•  ë…¸ë“œê°€ rootê°€ ì•„ë‹Œ ê²½ìš°
-			printf("%d ëŠ” ë£¨íŠ¸ê°€ ì•„ë‹ˆì•¼\n",key);
+		printf("%d ´Â ¸®ÇÁ³ëµå \n",key);
+		if(prev != head){ // »èÁ¦ÇÒ ³ëµå°¡ root°¡ ¾Æ´Ñ °æ¿ì
+			printf("%d ´Â ·çÆ®°¡ ¾Æ´Ï¾ß\n",key);
 			if(prev->left == delnode) prev->left = NULL;
 			else prev->right = NULL;
 		}
 		else {
-			printf("%d ëŠ” ë£¨íŠ¸ì•¼ \n",key);
+			printf("%d ´Â ·çÆ®¾ß \n",key);
 			head->left = NULL;
-			} // ì‚­ì œí•  ë…¸ë“œê°€ rootì¸ ê²½ìš°
-        printf("ì‚­ì œí•´ë– \n");
+			} // »èÁ¦ÇÒ ³ëµå°¡ rootÀÎ °æ¿ì
+        printf("»èÁ¦ÇØ¶°\n");
 		free(delnode);
 	}
 	else{
@@ -233,11 +233,11 @@ int deleteLeafNode(Node* head, int key)
 
 Node* searchRecursive(Node* ptr, int key)
 {
-	/* ì…ë ¥ë°›ì€ keyì™€ ë™ì¼í•œ keyë¥¼ ê°€ì§„ ë…¸ë“œê°€ ì—†ê±°ë‚˜
-	ê³µë°± íŠ¸ë¦¬ì¸ ê²½ìš° */
+	/* ÀÔ·Â¹ŞÀº key¿Í µ¿ÀÏÇÑ key¸¦ °¡Áø ³ëµå°¡ ¾ø°Å³ª
+	°ø¹é Æ®¸®ÀÎ °æ¿ì */
 	if(ptr == NULL) return NULL;
 
-	if(key == ptr->key) return ptr; // ì›í•˜ëŠ” ê°’ ì°¾ì•„ì„œ ë¦¬í„´
+	if(key == ptr->key) return ptr; // ¿øÇÏ´Â °ª Ã£¾Æ¼­ ¸®ÅÏ
 	else if(key < ptr->key) return searchRecursive(ptr->left, key);
 	return searchRecursive(ptr->right, key);
 }
@@ -250,19 +250,19 @@ Node* searchIterative(Node* head, int key)
 	}
 	Node* node = head->left;
 	while(node){
-		if(key == node->key) return node; //ì…ë ¥ë°›ì€ keyì™€ ë™ì¼í•œ keyê°€ì§„ ë…¸ë“œ ì°¾ìœ¼ë©´ ê·¸ ë…¸ë“œì˜ ì£¼ì†Œ ë¦¬í„´
-		if(key < node->key) node = node->left; //ì…ë ¥ë°›ì€ keyê°€ íŠ¸ë¦¬ì˜ keyë³´ë‹¤ ì‘ìœ¼ë©´ ì™¼ìª½ ìì‹ìœ¼ë¡œ ì´ë™
-		else node = node->right; // ì…ë ¥ë°›ì€ keyê°€ íŠ¸ë¦¬ì˜ keyë³´ë‹¤ í¬ë©´ ì˜¤ë¥¸ìª½ ìì‹ìœ¼ë¡œ ì´ë™
+		if(key == node->key) return node; //ÀÔ·Â¹ŞÀº key¿Í µ¿ÀÏÇÑ key°¡Áø ³ëµå Ã£À¸¸é ±× ³ëµåÀÇ ÁÖ¼Ò ¸®ÅÏ
+		if(key < node->key) node = node->left; //ÀÔ·Â¹ŞÀº key°¡ Æ®¸®ÀÇ keyº¸´Ù ÀÛÀ¸¸é ¿ŞÂÊ ÀÚ½ÄÀ¸·Î ÀÌµ¿
+		else node = node->right; // ÀÔ·Â¹ŞÀº key°¡ Æ®¸®ÀÇ keyº¸´Ù Å©¸é ¿À¸¥ÂÊ ÀÚ½ÄÀ¸·Î ÀÌµ¿
 	}
-	return NULL; // ì°¾ëŠ” ê°’ì´ ì—†ìœ¼ë©´ NULL ë¦¬í„´
+	return NULL; // Ã£´Â °ªÀÌ ¾øÀ¸¸é NULL ¸®ÅÏ
 }
 
-/* postorder traversal ì‘ìš©í•´ íŠ¸ë¦¬ ìˆœíšŒí•˜ë©° ë©”ëª¨ë¦¬ í•´ì œ */
+/* postorder traversal ÀÀ¿ëÇØ Æ®¸® ¼øÈ¸ÇÏ¸ç ¸Ş¸ğ¸® ÇØÁ¦ */
 int freeBST(Node* head) 
 {	
 	if(head == NULL) return 0;
 	freeBST(head->left);
-	if(head->right != head)// headnodeì—ì„œ ë¬´í•œë£¨í”„ ë°©ì§€
+	if(head->right != head)// headnode¿¡¼­ ¹«ÇÑ·çÇÁ ¹æÁö
 		freeBST(head->right);
 	free(head);
 }
